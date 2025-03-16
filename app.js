@@ -1,10 +1,10 @@
 import { module1 } from './module1.js';
 import { module2 } from './module2.js';
-// app.js
 import { initializeApp } from "firebase/app";
-// Falls du Firestore oder Auth benötigst:
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { someFunction } from './someModule.js';
+import { anotherFunction } from './anotherModule.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDeYvNO_oZ0WmpavlULVItPlhX4nKKAc00",
@@ -41,4 +41,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initially show the login section
     showSection('login');
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Ensure navigation event listeners are correctly set up
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const targetId = event.target.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
 });
