@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weckzeitrechner</title>
+    <style>
+        .input-field {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="input-field">
+        <label for="time">Uhrzeit (Format: xx:xx):</label>
+        <input type="time" id="time">
+    </div>
+    <div class="input-field">
+        <label for="minutes">Anzahl Minuten:</label>
+        <input type="number" id="minutes">
+    </div>
+    <button onclick="calculateNewTime()">Berechnen</button>
+    <div id="result"></div>
+    <script>
+        function calculateNewTime() {
+            const timeInput = document.getElementById('time').value;
+            const minutesInput = parseInt(document.getElementById('minutes').value, 10);
+
+            if (!timeInput || isNaN(minutesInput)) {
+                document.getElementById('result').innerText = 'Bitte geben Sie gültige Werte ein.';
+                return;
+            }
+
+            const [hours, minutes] = timeInput.split(':').map(Number);
+            const totalMinutes = hours * 60 + minutes - minutesInput;
+
+            const newHours = Math.floor((totalMinutes + 1440) % 1440 / 60);
+            const newMinutes = (totalMinutes + 1440) % 1440 % 60;
+
+            const formattedTime = `${String(newHours).padStart(2, '0')}:${String(newMinutes).padStart(2, '0')}`;
+            document.getElementById('result').innerText = `Neue Uhrzeit: ${formattedTime}`;
+        }
+    </script>
+</body>
+</html>

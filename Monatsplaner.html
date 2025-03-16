@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monatsplaner</title>
+    <style>
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        .calendar div {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        .sunday, .holiday {
+            background-color: red;
+        }
+        .saturday {
+            background-color: blue;
+        }
+        .vacation {
+            background-color: yellow;
+        }
+        .service-number {
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="service-number">
+        <label for="serviceNumber">Dienstnummer:</label>
+        <input type="text" id="serviceNumber">
+        <button onclick="saveServiceNumber()">Speichern</button>
+    </div>
+    <div class="calendar">
+        <!-- Calendar cells will be dynamically generated -->
+    </div>
+    <script>
+        const holidays = ["2023-12-25", "2023-12-26"]; // Example holidays
+        const vacations = ["2023-12-24", "2023-12-31"]; // Example vacations
+
+        function generateCalendar() {
+            const calendar = document.querySelector('.calendar');
+            const daysOfWeek = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+            const today = new Date();
+            const month = today.getMonth();
+            const year = today.getFullYear();
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // Adjust firstDay to start from Monday
+            const adjustedFirstDay = (firstDay === 0) ? 6 : firstDay - 1;
+
+            for (let i = 0; i < adjustedFirstDay; i++) {
+                calendar.innerHTML += '<div></div>';
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const dateString = date.toISOString().split('T')[0];
+                let className = '';
+
+                if (date.getDay() === 0) {
+                    className = 'sunday';
+                } else if (date.getDay() === 6) {
+                    className = 'saturday';
+                } else if (holidays.includes(dateString)) {
+                    className = 'holiday';
+                } else if (vacations.includes(dateString)) {
+                    className = 'vacation';
+                }
+
+                calendar.innerHTML += `<div class="${className}">${day}</div>`;
+            }
+        }
+
+        function saveServiceNumber() {
+            const serviceNumber = document.getElementById('serviceNumber').value;
+            localStorage.setItem('serviceNumber', serviceNumber);
+        }
+
+        function loadServiceNumber() {
+            const serviceNumber = localStorage.getItem('serviceNumber');
+            if (serviceNumber) {
+                document.getElementById('serviceNumber').value = serviceNumber;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generateCalendar();
+            loadServiceNumber();
+        });
+    </script>
+</body>
+</html>
