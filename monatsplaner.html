@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Dienstplan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- CSS und weitere Ressourcen einbinden -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="js/monatsplaner.js" defer></script>
+  <style>
+    /* Einfaches Beispiel-CSS für Modal */
+    .modal {
+      display: none; 
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      width: 300px;
+    }
+    .close {
+      float: right;
+      cursor: pointer;
+    }
+    /* Kalender-Styling */
+    #calendarTable {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    #calendarTable th, #calendarTable td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    #calendarTable th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Monatsplaner</h1>
+  </header>
+
+  <nav>
+    <ul class="main-navigation" style="list-style-type: none;">
+      <li><a href="index.html">Startseite</a></li>
+      <li><a href="dienste.html">Dienste</a></li>
+      <li><a href="fahrer.html">Fahrer</a></li>
+      <li><a href="monatsplaner.html">Monatsplaner</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h4>Dienstplan</h4>
+    <input type="text" id="datepicker" readonly>
+    <!-- Kalender -->
+    <div id="calendar">
+      <table id="calendarTable" border="1">
+        <thead>
+          <tr>
+            <th>Montag</th>
+            <th>Dienstag</th>
+            <th>Mittwoch</th>
+            <th>Donnerstag</th>
+            <th>Freitag</th>
+            <th>Samstag</th>
+            <th>Sonntag</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Kalenderdaten werden hier dynamisch eingefügt -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Dienstplan Meister</p>
+  </footer>
+
+  <!-- Modal zum Bearbeiten der Dienstnummer -->
+  <div id="serviceModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="modalClose">&times;</span>
+      <h3>Datum: <span id="modalDate"></span></h3>
+      <label for="dienstnummerInput">Dienstnummer:</label>
+      <input type="text" id="dienstnummerInput" />
+      <button id="saveServiceBtn">Speichern</button>
+    </div>
+  </div>
+</body>
+</html>
