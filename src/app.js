@@ -1,8 +1,8 @@
 import { module1 } from './module1.js';
 import { module2 } from './module2.js';
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 import { someFunction } from './someModule.js';
 import { anotherFunction } from './anotherModule.js';
 
